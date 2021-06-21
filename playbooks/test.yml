@@ -1,0 +1,66 @@
+---
+
+- hosts: all
+  become: true
+  become_user: ubuntu
+  environment:
+    GOPATH: "/home/ubuntu/go"
+    GOROOT: "/usr/local/go"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/ubuntu/go/bin"
+
+  tasks:
+#################### Build go-dappley ####################
+  - name: Make build
+    make:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+      target: build
+      file: /home/ubuntu/go/src/github.com/dappley/go-dappley/Makefile
+
+#################### Testall go-dappley ####################
+  - name: Make testall
+    make:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+      target: testall
+      file: /home/ubuntu/go/src/github.com/dappley/go-dappley/Makefile
+
+#################### Get Master Info ####################
+  - name: Createa master directory
+    shell: mkdir master
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+  - name: Get git change info
+    shell: git show > master/change.txt
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+  - name: Get testall info
+    shell: make testall > master/log.txt
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+  - name: Get commit info
+    shell: git log --pretty=fuller HEAD^..HEAD > master/commitInfo.txt
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+# #################### Get Develop Info ####################
+#   - name: Createa develop directory
+#     shell: mkdir develop
+#     args:
+#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+#   - name: Get git change info
+#     shell: git show > develop/change.txt
+#     args:
+#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+#   - name: Get testall info
+#     shell: make testall > develop/log.txt
+#     args:
+#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+#   - name: Get commit info
+#     shell: git log --pretty=fuller HEAD^..HEAD > develop/commitInfo.txt
+#     args:
+#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
