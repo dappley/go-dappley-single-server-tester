@@ -117,6 +117,11 @@ func initialize() {
 			status_scanner := bufio.NewScanner(strings.NewReader(string(output)))
 			for status_scanner.Scan() {
 				line := status_scanner.Text()
+				fmt.Println(line)
+			}
+			
+			for status_scanner.Scan() {
+				line := status_scanner.Text()
 
 				if strings.Contains(line, "\"InstanceStatuses\":") {
 					args := strings.Split(line, ": ")
