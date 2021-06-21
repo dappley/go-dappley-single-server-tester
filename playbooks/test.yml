@@ -16,13 +16,6 @@
       target: build
       file: /home/ubuntu/go/src/github.com/dappley/go-dappley/Makefile
 
-#################### Testall go-dappley ####################
-  - name: Make testall
-    make:
-      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
-      target: testall
-      file: /home/ubuntu/go/src/github.com/dappley/go-dappley/Makefile
-
 #################### Get Master Info ####################
   - name: Createa master directory
     shell: mkdir master
@@ -44,23 +37,84 @@
     args:
       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
 
-# #################### Get Develop Info ####################
-#   - name: Createa develop directory
-#     shell: mkdir develop
-#     args:
-#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+#################### Move files to the Jenkins master directory ####################
+  - name: Move change.txt to Jenkins master directory
+    fetch:
+      src: /home/ubuntu/go/src/github.com/dappley/go-dappley/master/change.txt
+      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/master/
+      flat: yes
 
-#   - name: Get git change info
-#     shell: git show > develop/change.txt
-#     args:
-#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+  - name: Move commitInfo.txt to Jenkins master directory
+    fetch:
+      src: /home/ubuntu/go/src/github.com/dappley/go-dappley/master/commitInfo.txt
+      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/master/
+      flat: yes
 
-#   - name: Get testall info
-#     shell: make testall > develop/log.txt
-#     args:
-#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+  - name: Move log.txt to Jenkins master directory
+    fetch:
+      src: /home/ubuntu/go/src/github.com/dappley/go-dappley/master/log.txt
+      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/master/
+      flat: yes
 
-#   - name: Get commit info
-#     shell: git log --pretty=fuller HEAD^..HEAD > develop/commitInfo.txt
-#     args:
-#       chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+  - name: Remove the master directory
+    shell: rm -r master
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+#################### Change branch to develop ####################
+  - name: Change branch to develop
+    shell: git checkout -f develop
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+#################### Build go-dappley ####################
+  - name: Make build
+    make:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+      target: build
+      file: /home/ubuntu/go/src/github.com/dappley/go-dappley/Makefile
+
+#################### Get Develop Info ####################
+  - name: Createa develop directory
+    shell: mkdir develop
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+  - name: Get git change info
+    shell: git show > develop/change.txt
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+  - name: Get testall info
+    shell: make testall > develop/log.txt
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+  - name: Get commit info
+    shell: git log --pretty=fuller HEAD^..HEAD > develop/commitInfo.txt
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
+
+#################### Move files to the Jenkins develop directory ####################
+  - name: Move change.txt to Jenkins develop directory
+    fetch:
+      src: /home/ubuntu/go/src/github.com/dappley/go-dappley/develop/change.txt
+      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/develop/
+      flat: yes
+
+  - name: Move commitInfo.txt to Jenkins develop directory
+    fetch:
+      src: /home/ubuntu/go/src/github.com/dappley/go-dappley/develop/commitInfo.txt
+      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/develop/
+      flat: yes
+
+  - name: Move log.txt to Jenkins develop directory
+    fetch:
+      src: /home/ubuntu/go/src/github.com/dappley/go-dappley/develop/log.txt
+      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/develop/
+      flat: yes
+
+  - name: Remove the develop directory
+    shell: rm -r develop
+    args:
+      chdir: /home/ubuntu/go/src/github.com/dappley/go-dappley
