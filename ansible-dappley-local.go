@@ -114,12 +114,7 @@ func initialize() {
 				fmt.Println(err)
 			}
 			
-			status_scanner := bufio.NewScanner(strings.NewReader(string(output)))
-			for status_scanner.Scan() {
-				line := status_scanner.Text()
-				fmt.Println(line)
-			}
-			
+			status_scanner := bufio.NewScanner(strings.NewReader(string(output)))			
 			for status_scanner.Scan() {
 				line := status_scanner.Text()
 
