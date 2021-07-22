@@ -41,19 +41,19 @@
   - name: Move change.txt to Jenkins master directory
     fetch:
       src: /home/ubuntu/go/src/github.com/dappley/go-dappley/master/change.txt
-      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/master/
+      dest: /var/lib/jenkins/workspace/send-test-results/master/
       flat: yes
 
   - name: Move commitInfo.txt to Jenkins master directory
     fetch:
       src: /home/ubuntu/go/src/github.com/dappley/go-dappley/master/commitInfo.txt
-      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/master/
+      dest: /var/lib/jenkins/workspace/send-test-results/master/
       flat: yes
 
   - name: Move log.txt to Jenkins master directory
     fetch:
       src: /home/ubuntu/go/src/github.com/dappley/go-dappley/master/log.txt
-      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/master/
+      dest: /var/lib/jenkins/workspace/send-test-results/master/
       flat: yes
 
   - name: Remove the master directory
@@ -99,19 +99,19 @@
   - name: Move change.txt to Jenkins develop directory
     fetch:
       src: /home/ubuntu/go/src/github.com/dappley/go-dappley/develop/change.txt
-      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/develop/
+      dest: /var/lib/jenkins/workspace/send-test-results/develop/
       flat: yes
 
   - name: Move commitInfo.txt to Jenkins develop directory
     fetch:
       src: /home/ubuntu/go/src/github.com/dappley/go-dappley/develop/commitInfo.txt
-      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/develop/
+      dest: /var/lib/jenkins/workspace/send-test-results/develop/
       flat: yes
 
   - name: Move log.txt to Jenkins develop directory
     fetch:
       src: /home/ubuntu/go/src/github.com/dappley/go-dappley/develop/log.txt
-      dest: /var/lib/jenkins/workspace/go-dappley-commit-report/develop/
+      dest: /var/lib/jenkins/workspace/send-test-results/develop/
       flat: yes
 
   - name: Remove the develop directory
