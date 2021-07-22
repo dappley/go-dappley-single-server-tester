@@ -1,5 +1,7 @@
-# ansible-dappley-local
- Testing go-dappley locally (127.0.0.1) on an aws EC2 instance
+# go-dappley-local-tester
+The go-dappley-local-tester pipeline task tests both "master" and "develop" branch of the "go-dappley" program locally on the Jenkins master server when new update is committed to the "go-dappley" repository. 
+
+**Note: Although this pipeline task does not require any AWS EC2 instances, it is not recommended to locally execute pipeline tasks on the Jenkins master server since it could become a potential vulerability to malicious programs.**
 
 ### Local Testing Pipeline:
 ```
@@ -75,6 +77,9 @@ pipeline {
     }
 }
 ```
+
+# go-dappley-single-server-tester
+The go-dappley-single-server-tester pipeline task tests both "master" and "develop" branch of the "go-dappley" program on an AWS EC2 instance when new update is committed to the "go-dappley" repository.
 
 ### Single Server Testing Pipeline:
 ```
