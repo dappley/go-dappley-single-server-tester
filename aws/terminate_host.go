@@ -1,4 +1,4 @@
-package main 
+package aws 
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 //Termiante all servers via aws cli command
-func terminate_host() {
+func Terminate_host() {
 	fileName := "instance_ids"
 	instance_byte, err := ioutil.ReadFile(fileName)
 	if err != nil {

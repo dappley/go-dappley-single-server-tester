@@ -1,10 +1,11 @@
 package main 
 
 import (
-	"log"
-	"fmt"
+	"github.com/heesooh/go-dappley-single-server-testing/helper"
+	"github.com/heesooh/go-dappley-single-server-testing/aws"
 	"flag"
-	"errors"
+	"fmt"
+	"log"
 )
 
 func main() {
@@ -14,36 +15,21 @@ func main() {
 	flag.StringVar(&senderPasswd, "senderPasswd", "default_password", "Email password of the addressee.")
 	flag.Parse()
 
-	err := checkFlags(function, senderEmail, senderPasswd)
+	err := helper.CheckFlags(function, senderEmail, senderPasswd)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 
 	if function == "update" {
-		update_host()
+		aws.Update_host()
 	} else if function == "initialize" {
-		initialize_host()
+		aws.Initialize_host()
 	} else if function == "ssh_command" {
-		ssh_command()
+		aws.SSH_command()
 	} else if function == "terminate" {
-		terminate_host()
+		aws.Terminate_host()
 	} else {
 		fmt.Println("Error: Function is invalid!\nFunction can be one of below:\nupdate\ninitialize\nssh_command\nterminate")
 	}
-}
-
-//----------Helper----------
-func checkFlags(function string, email string, password string) (err error) {
-	switch {
-	case function == "default_function":
-		err = errors.New("Error: Function is missing!")
-	case email == "default_email":
-		err = errors.New("Error: Email is missing!")
-	case password == "default_password":
-		err = errors.New("Error: Password is missing!")
-	default:
-		err = nil
-	}
-	return err
 }

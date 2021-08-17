@@ -1,4 +1,4 @@
-package main 
+package aws 
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 //Prints out the ssh command for all servers
-func ssh_command() {	
+func SSH_command() {	
 	instance_byte, err := ioutil.ReadFile("instance_ids")
 	if err != nil {
 		fmt.Println("Failed to read instance_ids!")

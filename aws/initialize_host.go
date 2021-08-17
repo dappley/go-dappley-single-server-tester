@@ -1,4 +1,4 @@
-package main 
+package aws 
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 )
 
 //Runs until all servers are initialized
-func initialize_host() {
+func Initialize_host() {
 	fileName := "instance_ids"
 	instance_byte, err := ioutil.ReadFile(fileName)
 	if err != nil {

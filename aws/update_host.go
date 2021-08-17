@@ -1,4 +1,4 @@
-package main 
+package aws 
 
 import (
 	"os"
@@ -9,7 +9,7 @@ import (
 )
 
 //Adds the server information to the hosts and instance_ids file
-func update_host() {
+func Update_host() {
 	//Create txt files for server info
 	host_file, err := os.Create("hosts")
 	if err != nil {
