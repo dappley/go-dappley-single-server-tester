@@ -1,41 +1,30 @@
 package aws 
 
 import (
-	"fmt"
-	"bufio"
-	"strings"
-	"os/exec"
+	"github.com/heesooh/go-dappley-single-server-testing/helper"
 	"io/ioutil"
+	"strings"
+	"bufio"
+	"fmt"
+	"log"
 )
 
 //Prints out the ssh command for all servers.
 func SSH_command() {	
-	instance_byte, err := ioutil.ReadFile("instance_ids")
-	if err != nil {
-		fmt.Println("Failed to read instance_ids!")
-		return
-	}
+	fileName := "instance_ids"
+	instance_byte, err := ioutil.ReadFile(fileName)
+	if err != nil { log.Fatal("Failed to read", fileName, "!") }
 
 	scanner := bufio.NewScanner(strings.NewReader(string(instance_byte)))
 	for scanner.Scan() {
-		instance_id := scanner.Text()
-
-		describe_instance := "aws ec2 describe-instances --instance-ids " + instance_id
-		args := strings.Split(describe_instance, " ")
-		cmd := exec.Command(args[0], args[1:]...)
-		output, err := cmd.CombinedOutput()
-		if err != nil {
-			fmt.Println(err)
-		}
+		describe_instance := "aws ec2 describe-instances --instance-ids " + scanner.Text()
+		output := helper.ShellCommandExecuter(describe_instance)
 
 		description_scanner := bufio.NewScanner(strings.NewReader(string(output)))
 		for description_scanner.Scan() {
 			line := description_scanner.Text()
-
 			if strings.Contains(line, "\"PublicIpAddress\":") {
-				public_ip_args := strings.Split(line, ": ")
-				public_ip := strings.TrimLeft(strings.TrimRight(public_ip_args[1], "\","), "\"")
-				fmt.Println("ssh -i jenkins.pem ubuntu@" + public_ip)
+				fmt.Println("ssh -i jenkins.pem ubuntu@" + helper.TrimLeftRight(line, "\"", "\","))
 				break
 			}
 		}
