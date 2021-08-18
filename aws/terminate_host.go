@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 )
 
-//Termiante all servers via aws cli command
+//Termiante all servers via aws cli command.
 func Terminate_host() {
 	fileName := "instance_ids"
 	instance_byte, err := ioutil.ReadFile(fileName)

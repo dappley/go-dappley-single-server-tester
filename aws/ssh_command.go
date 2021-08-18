@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 )
 
-//Prints out the ssh command for all servers
+//Prints out the ssh command for all servers.
 func SSH_command() {	
 	instance_byte, err := ioutil.ReadFile("instance_ids")
 	if err != nil {

@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 )
 
-//Runs until all servers are initialized
+//Runs until all servers are initialized.
 func Initialize_host() {
 	fileName := "instance_ids"
 	instance_byte, err := ioutil.ReadFile(fileName)
