@@ -15,7 +15,7 @@ func main() {
 	flag.StringVar(&senderPasswd, "senderPasswd", "default_password", "Email password of the addressee.")
 	flag.Parse()
 
-	err := helper.CheckFlags(function, senderEmail, senderPasswd)
+	err := helper.CheckFlags(senderEmail, senderPasswd)
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -29,6 +29,8 @@ func main() {
 		aws.SSH_command()
 	} else if function == "terminate" {
 		aws.Terminate_host()
+	} else if function == "default_function" {
+		log.Fatal("Error: Function is missing!")
 	} else {
 		fmt.Println("Error: Function is invalid!\nFunction can be one of below:\nupdate\ninitialize\nssh_command\nterminate")
 	}
