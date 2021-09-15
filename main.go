@@ -15,12 +15,6 @@ func main() {
 	flag.StringVar(&senderPasswd, "senderPasswd", "default_password", "Email password of the addressee.")
 	flag.Parse()
 
-	err := helper.CheckFlags(senderEmail, senderPasswd)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
 	if function == "update" {
 		aws.Update_host()
 	} else if function == "initialize" {
