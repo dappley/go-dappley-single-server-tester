@@ -1,8 +1,8 @@
 package main 
 
 import (
-	"github.com/heesooh/go-dappley-single-server-testing/helper"
-	"github.com/heesooh/go-dappley-single-server-testing/aws"
+	"github.com/heesooh/go-dappley-single-server-tester/helper"
+	"github.com/heesooh/go-dappley-single-server-tester/aws"
 	"flag"
 	"fmt"
 	"log"
