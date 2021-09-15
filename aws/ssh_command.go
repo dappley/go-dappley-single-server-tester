@@ -1,7 +1,7 @@
 package aws 
 
 import (
-	"github.com/heesooh/go-dappley-single-server-testing/helper"
+	"github.com/heesooh/go-dappley-single-server-tester/helper"
 	"io/ioutil"
 	"strings"
 	"bufio"
